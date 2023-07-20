@@ -1,0 +1,41 @@
+<div class="bootstrap-wrapper">
+    <div class="container-fluid">
+      <div class="row mt10 ml10">
+        <button
+        mat-raised-button
+        color="accent"
+        [routerLink]="'/user-dashboard/0'"
+      >
+        Return To Home
+      </button>
+      </div>
+        <div class="row mt20" *ngIf="quizResults">
+          
+            <div class="col-md-4" *ngFor="let q of quizResults">
+                <mat-card class="mb20">
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>
+                      {{ q.quiz.title }}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                      {{ q.quiz.description }}
+                    </mat-card-subtitle>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p class="truncate">{{ q.quiz.level }}</p>
+                  </mat-card-content>
+                  <mat-card-content>
+                    <p class="truncate">{{ q.date}}</p>
+                  </mat-card-content>
+                  <mat-card-action>
+                    <p class="truncate"> Marks Obtained : {{ q.marksObtained }}</p>
+                    <p class="truncate"> Total : {{ q.totalMarks }}</p>
+                    <p class="truncate">{{ getPerformanceMessage(q.marksObtained, q.totalMarks)}}</p>
+                  </mat-card-action>
+                </mat-card>
+              </div>
+          
+        </div>
+    </div>
+</div>

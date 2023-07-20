@@ -1,0 +1,90 @@
+<div class="bootstrap-wrapper">
+    <div class="container-fluid">
+      <div class="row mt10 ml10">
+        <button
+        mat-raised-button
+        color="accent"
+        [routerLink]="'/user-dashboard/0'"
+      >
+        Return To Home
+      </button>
+      </div>
+      <div class="row">
+
+        <div class="col-6">
+          <ng-container *ngIf="questionData">
+           
+            <mat-card *ngFor="let question of questionData; let i=index">
+              <mat-card-content>
+                <p>
+                  <b>Q {{ i + 1 }})</b>
+                  <span class="ml10" [innerHTML]="question.content"></span>
+                </p>
+                <p><b>Correct Answer:</b> {{ question.answer }}</p>
+                
+                <p [ngClass]="{ 'correct-answer': question.answer === question.givenAnswer, 'wrong-answer': question.answer !== question.givenAnswer }">
+                  <b>Your Answer:</b> {{ question.givenAnswer }}
+                </p>
+                 
+                <p *ngIf="question.answer !== question.givenAnswer" class="wrong-answer-message">You have given the wrong answer.</p>
+                
+              </mat-card-content>
+              <br/>
+            </mat-card>
+          </ng-container>
+        </div>
+        <div class="col-6">
+          
+          <mat-card *ngIf="questionData">
+            <h4>What You Do Know</h4>
+      
+            <ng-container *ngFor="let question of questionData;" >
+              <li *ngIf="question.answer === question.givenAnswer">
+                <span class="ml10" [innerHTML]="question.topic"></span>
+              </li>
+            </ng-container>
+          </mat-card> 
+       
+        
+          
+         
+
+          
+          <mat-card *ngIf="questionData">
+            <h4>What You Don't Know</h4>
+            <ng-container *ngFor="let question of questionData;" >
+              <li *ngIf="question.answer !== question.givenAnswer">
+                <span class="ml10" [innerHTML]="question.topic"></span>
+              </li>
+            </ng-container>
+          </mat-card>
+          <mat-card>
+            <h4>Your Overall Performance</h4>
+            <ng-container *ngIf="!userPerformance; else spinnerTemplate">
+              <!-- Display the mat-progress-spinner as a percentage circle -->
+              <mat-progress-spinner [diameter]="100" [strokeWidth]="10"></mat-progress-spinner>
+            </ng-container>
+  
+            <ng-container *ngIf="userPerformance; else noQuizResultsTemplate">
+              <div class="percentage-circle">
+                <!-- Use CSS to style the percentage circle -->
+                <span class="percent">{{ userPerformance.toFixed(2) }}%</span>
+                <div class="circle-wrapper">
+                  <div class="circle" 
+                  ></div>
+                  <div class="fill" mode="determinate" color="accent" [style.height.%]="userPerformance"></div>
+                </div>
+              </div>
+              <p>{{ analysis }}</p>
+              <div *ngIf="hasAttendedOnlyOneQuiz">Other message when the user attended only one quiz</div>
+            </ng-container>
+          </mat-card>
+  
+
+<!-- ... Existing code ... -->
+
+        </div>
+    </div>
+</div>
+
+  
